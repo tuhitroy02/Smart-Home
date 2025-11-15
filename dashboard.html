@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SmartHome — Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <input id="menu-toggle" type="checkbox" hidden>
+  <label class="hamburger" for="menu-toggle" aria-hidden="true">
+    <img class="icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/menu.svg" alt="menu">
+  </label>
+
+  <aside class="sidebar">
+    <div class="sidebar-top">
+      <h2><img class="nav-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/home.svg" alt="dashboard" /> SmartHome</h2>
+      <p class="small-muted">Control Management</p>
+    </div>
+
+    <nav class="main-nav">
+      <a class="nav-item active" href="dashboard.html"><img class="nav-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/home.svg" alt="Dashboard"> Dashboard</a>
+      <a class="nav-item" href="devices.html"><img class="nav-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/layers.svg" alt="Devices"> Devices</a>
+      <a class="nav-item" href="schedules.html"><img class="nav-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/calendar.svg" alt="Schedules"> Schedules</a>
+      <a class="nav-item" href="logs.html"><img class="nav-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/book-open.svg" alt="Logs"> Logs</a>
+      <a class="nav-item" href="settings.html"><img class="nav-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/settings.svg" alt="Settings"> Settings</a>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="profile">
+        <img class="avatar-img" src="https://cdn-icons-png.flaticon.com/512/5556/5556468.png" alt="User">
+        <div>
+          <div class="name">Home Owner</div>
+          <div class="small-muted">Owner • last seen 2m</div>
+        </div>
+      </div>
+      <a class="signout" href="login.html"><img class="nav-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/log-out.svg" alt="sign out"> Sign out</a>
+    </div>
+  </aside>
+
+  <main class="app">
+    <header class="app-header">
+      <div>
+        <h1>Welcome back</h1>
+        <p class="small-muted">Overview of your smart home</p>
+      </div>
+
+      <div class="header-actions">
+        <div class="search">
+          <img class="search-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/search.svg" alt="search">
+          <input type="search" placeholder="Search devices or actions" />
+        </div>
+
+        <!-- Room filter -->
+        <select id="room-filter" class="room-filter" aria-label="Filter by room">
+          <option value="">All rooms</option>
+          <option value="living">Living Room</option>
+          <option value="hall">Hall</option>
+          <option value="bedroom">Bedroom</option>
+          <option value="kitchen">Kitchen</option>
+        </select>
+
+        <!-- Add device button -->
+        <a class="btn-primary" id="open-add-device"><img class="btn-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/plus.svg" alt="add"> Add Device</a>
+
+        <!-- Notifications -->
+        <div class="notify-wrap">
+          <button id="notify-btn" class="btn-ghost" aria-haspopup="true" aria-expanded="false">
+            <img class="btn-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/bell.svg" alt="notifications">
+            <span id="notify-count" class="notify-count hidden">0</span>
+          </button>
+          <div id="notify-dropdown" class="notify-dropdown hidden" role="menu" aria-label="Notifications"></div>
+        </div>
+
+        <!-- Dark mode toggle -->
+        <button id="dark-toggle" class="btn-ghost" aria-pressed="false" title="Toggle dark mode">
+          <img class="btn-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/moon.svg" alt="dark mode"> Dark
+        </button>
+      </div>
+    </header>
+
+    <!-- Header hero image + chart -->
+    <div class="dashboard-hero">
+      <img class="dashboard-hero-img" src="https://cdn-icons-png.flaticon.com/512/2103/2103409.png" alt="Home Automation Illustration">
+      <div class="hero-text">
+        <h2>Smart control for your entire home</h2>
+        <p class="small-muted">Quick actions, status, and upcoming schedules at a glance.</p>
+      </div>
+
+      <!-- Energy chart -->
+      <div class="chart-card">
+        <canvas id="energyChart" width="400" height="140" aria-label="Energy usage chart"></canvas>
+      </div>
+    </div>
+
+    <section class="grid-3">
+      <article class="stat-card">
+        <div class="stat-title">Connected Devices</div>
+        <div class="stat-value" id="stat-devices">12</div>
+        <div class="stat-meta">4 offline</div>
+      </article>
+
+      <article class="stat-card">
+        <div class="stat-title">Active Scenes</div>
+        <div class="stat-value">3</div>
+        <div class="stat-meta">Morning, Evening, Away</div>
+      </article>
+
+      <article class="stat-card">
+        <div class="stat-title">Pending Schedules</div>
+        <div class="stat-value" id="stat-schedules">5</div>
+        <div class="stat-meta">Next: 06:30 — Thermostat</div>
+      </article>
+    </section>
+
+    <section class="panel devices-overview">
+      <div class="panel-head">
+        <h2>Devices</h2>
+        <div class="panel-actions">
+          <label class="toggle-filter">
+            <input type="checkbox" checked>
+            <span>Show offline</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="devices-grid">
+        <!-- Device 1: Living Room Light -->
+        <article class="device-card" data-device-id="living_room_light">
+          <div class="device-head">
+            <div class="device-title-left">
+              <img class="device-photo" src="https://cdn-icons-png.flaticon.com/512/702/702814.png" alt="Ceiling Light">
+              <div>
+                <h3>Living Room Light</h3>
+                <p class="small-muted">Light • Philips</p>
+              </div>
+            </div>
+            <div class="status-block">
+              <img class="status-img" src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="online">
+            </div>
+          </div>
+
+          <div class="device-controls">
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+            <div class="device-info">
+              <div>Power: <strong>On</strong></div>
+              <div class="small-muted">Last seen 2m</div>
+            </div>
+            <div class="control-icons">
+              <img class="ctrl-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/refresh-cw.svg" alt="refresh">
+              <img class="ctrl-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/edit.svg" alt="edit">
+              <img class="ctrl-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/trash.svg" alt="delete">
+            </div>
+          </div>
+        </article>
+
+        <!-- Device 2: Thermostat -->
+        <article class="device-card" data-device-id="thermostat_hall">
+          <div class="device-head">
+            <div class="device-title-left">
+              <img class="device-photo" src="https://cdn-icons-png.flaticon.com/512/3050/3050525.png" alt="Thermostat">
+              <div>
+                <h3>Thermostat • Hall</h3>
+                <p class="small-muted">Temp sensor • Nest</p>
+              </div>
+            </div>
+            <div class="status-block">
+              <img class="status-img" src="https://cdn-icons-png.flaticon.com/512/463/463612.png" alt="offline">
+            </div>
+          </div>
+
+          <div class="device-controls">
+            <div class="thermo-mini">
+              <div class="thermo-num">22°C</div>
+              <div class="thermo-btns">
+                <label class="small-btn">−</label>
+                <label class="small-btn">+</label>
+              </div>
+            </div>
+            <div class="device-info">
+              <div>Mode: <strong>Auto</strong></div>
+              <div class="small-muted">Last seen 10m</div>
+            </div>
+            <div class="control-icons">
+              <img class="ctrl-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/refresh-cw.svg" alt="refresh">
+              <img class="ctrl-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/edit.svg" alt="edit">
+            </div>
+          </div>
+        </article>
+
+        <!-- Device 3: Front Door Lock -->
+        <article class="device-card" data-device-id="front_door_lock">
+          <div class="device-head">
+            <div class="device-title-left">
+              <img class="device-photo" src="https://cdn-icons-png.flaticon.com/512/483/483361.png" alt="Door Lock">
+              <div>
+                <h3>Front Door Lock</h3>
+                <p class="small-muted">Lock • August</p>
+              </div>
+            </div>
+            <div class="status-block">
+              <img class="status-img" src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="online">
+            </div>
+          </div>
+
+          <div class="device-controls">
+            <label class="switch">
+              <input type="checkbox">
+              <span class="slider"></span>
+            </label>
+            <div class="device-info">
+              <div>State: <strong>Locked</strong></div>
+              <div class="small-muted">Last seen 1m</div>
+            </div>
+            <div class="control-icons">
+              <img class="ctrl-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/refresh-cw.svg" alt="refresh">
+              <img class="ctrl-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/key.svg" alt="key">
+            </div>
+          </div>
+        </article>
+
+        <!-- Add more cards following same pattern as needed -->
+      </div>
+    </section>
+
+    <section class="two-col">
+      <div class="panel">
+        <h3>Upcoming Schedules</h3>
+        <ol class="compact-list" id="schedules-list">
+          <!-- schedules rendered by JS -->
+        </ol>
+      </div>
+
+      <div class="panel">
+        <h3>Recent Activity</h3>
+        <ol class="compact-list" id="recent-activity">
+          <!-- logs rendered by JS -->
+        </ol>
+      </div>
+    </section>
+
+    <footer class="app-footer">
+      <p>© SmartHome — Built with HTML, CSS & JS. For live control, connect a backend API.</p>
+    </footer>
+  </main>
+
+  <!-- ====== MODALS (site-wide) — place before script ====== -->
+
+  <!-- Add Device Modal -->
+  <div id="modal-add-device" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="addDeviceTitle">
+    <div class="modal-panel">
+      <h3 id="addDeviceTitle">Add New Device</h3>
+      <form id="form-add-device">
+        <label>Name <input name="name" required></label>
+        <label>Type 
+          <select name="type" required>
+            <option value="Light">Light</option>
+            <option value="Thermostat">Thermostat</option>
+            <option value="Lock">Lock</option>
+            <option value="Camera">Camera</option>
+            <option value="Sensor">Sensor</option>
+            <option value="Plug">Plug</option>
+          </select>
+        </label>
+        <label>Room
+          <select name="room">
+            <option value="living">Living Room</option>
+            <option value="hall">Hall</option>
+            <option value="bedroom">Bedroom</option>
+            <option value="kitchen">Kitchen</option>
+          </select>
+        </label>
+        <div class="modal-actions">
+          <button type="submit" class="btn-primary">Add Device</button>
+          <button type="button" class="btn-ghost" data-close>Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add Schedule Modal -->
+  <div id="modal-schedule" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="schTitle">
+    <div class="modal-panel">
+      <h3 id="schTitle">New Schedule</h3>
+      <form id="form-schedule">
+        <label>Time <input name="time" placeholder="Daily 06:30 or 2025-11-20 18:00" required></label>
+        <label>Device 
+          <select name="device" id="schedule-device" required>
+            <!-- JS fills devices -->
+          </select>
+        </label>
+        <label>Action
+          <select name="action" required>
+            <option value="turn_on">Turn On</option>
+            <option value="turn_off">Turn Off</option>
+            <option value="lock">Lock</option>
+            <option value="unlock">Unlock</option>
+          </select>
+        </label>
+        <div class="modal-actions">
+          <button type="submit" class="btn-primary">Save Schedule</button>
+          <button type="button" class="btn-ghost" data-close>Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Profile Modal -->
+  <div id="modal-profile" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="profileTitle">
+    <div class="modal-panel">
+      <h3 id="profileTitle">Profile</h3>
+      <form id="form-profile">
+        <label>Name <input name="name" value="Home Owner"></label>
+        <label>Email <input name="email" value="you@example.com" type="email"></label>
+        <label>Avatar
+          <input name="avatar" id="avatarInput" type="file" accept="image/*">
+        </label>
+        <div class="modal-actions">
+          <button type="submit" class="btn-primary">Save</button>
+          <button type="button" class="btn-ghost" data-close>Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- script (must be last) -->
+  <script src="script.js"></script>
+</body>
+</html>

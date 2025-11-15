@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartHome — Settings</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- Mobile Hamburger Menu -->
+  <input id="menu-toggle" type="checkbox" hidden />
+  <label class="hamburger" for="menu-toggle">
+    <img class="icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/menu.svg" />
+  </label>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-top">
+      <h2>
+        <img class="nav-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/home.svg" />
+        SmartHome
+      </h2>
+      <p class="small-muted">Control Management</p>
+    </div>
+
+    <nav class="main-nav">
+      <a class="nav-item" href="dashboard.html">
+        <img class="nav-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/home.svg" />
+        Dashboard
+      </a>
+      <a class="nav-item" href="devices.html">
+        <img class="nav-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/layers.svg" />
+        Devices
+      </a>
+      <a class="nav-item" href="schedules.html">
+        <img class="nav-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/calendar.svg" />
+        Schedules
+      </a>
+      <a class="nav-item" href="logs.html">
+        <img class="nav-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/book-open.svg" />
+        Logs
+      </a>
+      <a class="nav-item active" href="settings.html">
+        <img class="nav-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/settings.svg" />
+        Settings
+      </a>
+    </nav>
+
+    <!-- Profile -->
+    <div class="sidebar-bottom">
+      <div class="profile">
+        <img class="avatar-img" src="https://cdn-icons-png.flaticon.com/512/5556/5556468.png" />
+        <div>
+          <div class="name">Home Owner</div>
+          <div class="small-muted">Owner • last seen 2m</div>
+        </div>
+      </div>
+
+      <a class="signout" href="login.html">
+        <img class="nav-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/log-out.svg" />
+        Sign out
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main App -->
+  <main class="app">
+
+    <!-- Header -->
+    <header class="app-header">
+      <div>
+        <h1>Settings</h1>
+        <p class="small-muted">Manage your account, preferences, and application settings</p>
+      </div>
+
+      <div class="header-actions">
+
+        <!-- Search -->
+        <div class="search">
+          <img class="search-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/search.svg" />
+          <input type="search" placeholder="Search settings..." />
+        </div>
+
+        <!-- Room Filter -->
+        <select id="room-filter" class="room-filter">
+          <option value="">All rooms</option>
+          <option value="living">Living Room</option>
+          <option value="hall">Hall</option>
+          <option value="bedroom">Bedroom</option>
+          <option value="kitchen">Kitchen</option>
+        </select>
+
+        <!-- Add Device -->
+        <a class="btn-primary" id="open-add-device">
+          <img class="btn-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/plus.svg" />
+          Add Device
+        </a>
+
+        <!-- Notifications -->
+        <div class="notify-wrap">
+          <button id="notify-btn" class="btn-ghost">
+            <img class="btn-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/bell.svg" />
+            <span id="notify-count" class="notify-count hidden">0</span>
+          </button>
+          <div id="notify-dropdown" class="notify-dropdown hidden"></div>
+        </div>
+
+        <!-- Dark Mode -->
+        <button id="dark-toggle" class="btn-ghost">
+          <img class="btn-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/moon.svg" />
+          Dark
+        </button>
+
+      </div>
+    </header>
+
+    <!-- Settings Content -->
+    <section class="settings-section">
+
+      <div class="panel">
+        <h2>Account Settings</h2>
+
+        <div class="settings-item">
+          <h3>Profile Information</h3>
+          <p class="small-muted">Update your name, email, and profile image.</p>
+          <button class="btn-primary" id="open-profile">Edit Profile</button>
+        </div>
+
+        <div class="settings-item">
+          <h3>Password</h3>
+          <p class="small-muted">Change your account password.</p>
+          <button class="btn-ghost">Change Password</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Preferences</h2>
+
+        <div class="settings-item">
+          <h3>Notifications</h3>
+          <label class="switch">
+            <input type="checkbox" checked />
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="settings-item">
+          <h3>Voice Control</h3>
+          <label class="switch">
+            <input type="checkbox" id="voice-control" checked />
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="settings-item">
+          <h3>Dark Mode</h3>
+          <label class="switch">
+            <input type="checkbox" id="dark-mode-toggle" />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>System Settings</h2>
+
+        <div class="settings-item">
+          <h3>Reset All Devices</h3>
+          <button class="btn-ghost danger">Reset</button>
+        </div>
+
+        <div class="settings-item">
+          <h3>Backup & Restore</h3>
+          <button class="btn-primary">Download Backup</button>
+        </div>
+      </div>
+
+    </section>
+
+    <footer class="app-footer">
+      <p>© SmartHome — System Settings</p>
+    </footer>
+
+  </main>
+
+  <!-- ========== MODALS (Required on every page) ========== -->
+
+  <!-- Add Device Modal -->
+  <div id="modal-add-device" class="modal hidden">
+    <div class="modal-panel">
+      <h3>Add New Device</h3>
+      <form id="form-add-device">
+        <label>Name <input name="name" required /></label>
+
+        <label>Type
+          <select name="type" required>
+            <option value="Light">Light</option>
+            <option value="Thermostat">Thermostat</option>
+            <option value="Lock">Lock</option>
+            <option value="Camera">Camera</option>
+            <option value="Sensor">Sensor</option>
+            <option value="Plug">Plug</option>
+          </select>
+        </label>
+
+        <label>Room
+          <select name="room">
+            <option value="living">Living Room</option>
+            <option value="hall">Hall</option>
+            <option value="bedroom">Bedroom</option>
+            <option value="kitchen">Kitchen</option>
+          </select>
+        </label>
+
+        <div class="modal-actions">
+          <button type="submit" class="btn-primary">Add Device</button>
+          <button type="button" class="btn-ghost" data-close>Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add Schedule Modal -->
+  <div id="modal-schedule" class="modal hidden">
+    <div class="modal-panel">
+      <h3>New Schedule</h3>
+      <form id="form-schedule">
+        <label>Time <input name="time" required /></label>
+
+        <label>Device <select name="device" id="schedule-device"></select></label>
+
+        <label>Action
+          <select name="action">
+            <option value="turn_on">Turn On</option>
+            <option value="turn_off">Turn Off</option>
+            <option value="lock">Lock</option>
+            <option value="unlock">Unlock</option>
+          </select>
+        </label>
+
+        <div class="modal-actions">
+          <button type="submit" class="btn-primary">Save Schedule</button>
+          <button type="button" class="btn-ghost" data-close>Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Profile Modal -->
+  <div id="modal-profile" class="modal hidden">
+    <div class="modal-panel">
+      <h3>Profile</h3>
+      <form id="form-profile">
+        <label>Name <input name="name" /></label>
+        <label>Email <input name="email" type="email" /></label>
+        <label>Avatar <input name="avatar" id="avatarInput" type="file" accept="image/*" /></label>
+
+        <div class="modal-actions">
+          <button type="submit" class="btn-primary">Save</button>
+          <button type="button" class="btn-ghost" data-close>Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="script.js"></script>
+
+  <script>
+    document.getElementById("open-profile").addEventListener("click", function () {
+      document.getElementById("modal-profile").classList.remove("hidden");
+    });
+  </script>
+
+</body>
+</html>

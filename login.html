@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SmartHome — Login</title>
+
+  <!-- Elegant Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <div class="bg-auth">
+    <div class="auth-wrap">
+
+      <!-- Auth card -->
+      <div class="auth-card auth-card--lg">
+
+        <!-- LEFT SIDE (LOGIN FORM) -->
+        <div class="auth-left">
+          
+          <div class="brand-block">
+            <h1 class="brand-title">SmartHome</h1>
+            <div class="tag">Online Smart Home Control Management System</div>
+          </div>
+
+          <form class="login-form" id="loginForm" novalidate>
+
+            <!-- Email -->
+            <div class="field">
+              <label class="label">Email</label>
+              <input class="input" type="email" placeholder="you@example.com" required>
+            </div>
+
+            <!-- Password -->
+            <div class="field">
+              <label class="label">Password</label>
+              <input class="input" type="password" placeholder="Enter password" required>
+            </div>
+
+            <!-- Helpers -->
+            <div class="helpers">
+              <label class="checkbox">
+                <input type="checkbox" checked> Remember me
+              </label>
+              <a class="link-muted" href="#">Forgot?</a>
+            </div>
+
+            <!-- SIGN-IN BUTTON -->
+            <button type="submit" class="btn-primary btn-lg">Sign in</button>
+
+            <!-- Small inline account creation (NOT a big button) -->
+            <div class="alt">
+              New here?
+              <a href="#" class="create-link">Create an account</a>
+            </div>
+
+          </form>
+
+        </div>
+
+        <!-- RIGHT SIDE (HERO SECTION) -->
+        <div class="auth-right auth-right--centered">
+          <div class="hero-visual">
+
+            <!-- Hero Illustration -->
+            <img class="hero-img centered-illustration"
+              src="https://cdn-icons-png.flaticon.com/512/2103/2103409.png"
+              alt="Smart Home Illustration">
+
+            <h2 class="hero-title">Control your home — anywhere</h2>
+
+            <p class="hero-sub">
+              Manage lights, thermostats, locks, scenes, schedules, and logs —
+              all from one clean dashboard.
+            </p>
+
+            <ul class="feature-list hero-features">
+              <li>Device overview & status</li>
+              <li>Schedule automation (mock)</li>
+              <li>Activity logs and history</li>
+            </ul>
+
+          </div>
+        </div>
+
+      </div> <!-- auth-card -->
+
+    </div>
+  </div>
+
+  <!-- GLOBAL MODALS — REQUIRED BY SCRIPT.JS -->
+  
+  <!-- Add Device Modal -->
+  <div id="modal-add-device" class="modal hidden">
+    <div class="modal-panel">
+      <h3>Add New Device</h3>
+      <form id="form-add-device">
+        <label>Name <input name="name" required></label>
+        <label>Type
+          <select name="type" required>
+            <option>Light</option>
+            <option>Thermostat</option>
+            <option>Lock</option>
+            <option>Camera</option>
+            <option>Sensor</option>
+            <option>Plug</option>
+          </select>
+        </label>
+        <label>Room
+          <select name="room">
+            <option value="living">Living Room</option>
+            <option value="hall">Hall</option>
+            <option value="bedroom">Bedroom</option>
+            <option value="kitchen">Kitchen</option>
+          </select>
+        </label>
+        <div class="modal-actions">
+          <button type="submit" class="btn-primary">Add Device</button>
+          <button type="button" class="btn-ghost" data-close>Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add Schedule Modal -->
+  <div id="modal-schedule" class="modal hidden">
+    <div class="modal-panel">
+      <h3>New Schedule</h3>
+      <form id="form-schedule">
+        <label>Time <input name="time" placeholder="Daily 06:30 or 2025-11-20 18:00" required></label>
+        <label>Device <select name="device" id="schedule-device"></select></label>
+        <label>Action
+          <select name="action">
+            <option value="turn_on">Turn On</option>
+            <option value="turn_off">Turn Off</option>
+            <option value="lock">Lock</option>
+            <option value="unlock">Unlock</option>
+          </select>
+        </label>
+        <div class="modal-actions">
+          <button type="submit" class="btn-primary">Save Schedule</button>
+          <button type="button" class="btn-ghost" data-close>Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Profile Modal -->
+  <div id="modal-profile" class="modal hidden">
+    <div class="modal-panel">
+      <h3>Profile</h3>
+      <form id="form-profile">
+        <label>Name <input name="name" value="Home Owner"></label>
+        <label>Email <input name="email" type="email" value="you@example.com"></label>
+        <label>Avatar <input id="avatarInput" name="avatar" type="file" accept="image/*"></label>
+        <div class="modal-actions">
+          <button type="submit" class="btn-primary">Save</button>
+          <button type="button" class="btn-ghost" data-close>Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script src="script.js"></script>
+
+  <!-- Login Handler -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const form = document.getElementById('loginForm');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const email = form.querySelector('input[type="email"]').value.trim();
+        const pass = form.querySelector('input[type="password"]').value.trim();
+
+        if (!email || !pass) {
+          alert("Please enter email and password.");
+          return;
+        }
+
+        if (!email.includes("@")) {
+          alert("Enter a valid email.");
+          return;
+        }
+
+        // Save session
+        localStorage.setItem('smarthome_user_v2', JSON.stringify({
+          email,
+          loggedInAt: new Date().toISOString()
+        }));
+
+        window.location.href = "dashboard.html";
+      });
+    });
+  </script>
+
+</body>
+</html>
