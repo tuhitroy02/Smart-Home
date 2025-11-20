@@ -4,13 +4,12 @@
   <meta charset="UTF-8">
   <title>SmartHome – Admin Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- reuse your existing styles -->
   <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body class="app">
 
-  <!-- ========== ADMIN SIDEBAR ========== -->
+  <!-- ====== ADMIN SIDEBAR ====== -->
   <aside class="app-sidebar">
     <div class="brand">
       <div class="brand-mark">SH</div>
@@ -22,34 +21,32 @@
 
     <nav class="main-nav">
       <a class="nav-item active" href="admin-dashboard.html">
-        <img class="nav-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/home.svg" alt="">
-        Admin Dashboard
+        <img class="nav-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/layout.svg" alt="">
+        Overview
       </a>
-
-      <!-- These links point to your existing pages -->
+      <a class="nav-item" href="#user-management">
+        <img class="nav-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/users.svg" alt="">
+        Users
+      </a>
       <a class="nav-item" href="devices.html">
         <img class="nav-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/cpu.svg" alt="">
-        Device Control (0.2.1)
+        Devices
       </a>
-
       <a class="nav-item" href="schedules.html">
         <img class="nav-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/calendar.svg" alt="">
-        Scheduling (0.2.2)
+        Schedules
       </a>
-
       <a class="nav-item" href="logs.html">
         <img class="nav-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/book-open.svg" alt="">
-        Logs & Security (0.2.3 / 0.2.4)
+        Logs & Security
       </a>
-
       <a class="nav-item" href="settings.html">
         <img class="nav-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/settings.svg" alt="">
         System Settings
       </a>
-
       <a class="nav-item" href="dashboard.html">
         <img class="nav-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/user.svg" alt="">
-        Home Owner Dashboard
+        Home Owner View
       </a>
     </nav>
 
@@ -61,145 +58,250 @@
           <div class="small-muted">Full access</div>
         </div>
       </div>
+      <a class="signout" href="admin-login.html">
+        <img class="nav-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/log-out.svg" alt="">
+        Sign out
+      </a>
     </div>
   </aside>
 
-  <!-- ========== MAIN ADMIN AREA ========== -->
+  <!-- ====== MAIN CONTENT ====== -->
   <main class="app-main">
-
     <!-- HEADER -->
     <header class="app-header">
       <div>
         <h1>Admin Dashboard</h1>
         <p class="small-muted">
-          Admin performs all main operations from DFD Level 2:
-          user registration, device control, scheduling, energy & security management.
+          Here admin performs all major operations from DFD Level 2:
+          user registration, device control, scheduling, energy monitoring and security management.
         </p>
       </div>
     </header>
 
-    <!-- TOP CARDS: show that admin manages everything -->
+    <!-- TOP STATS -->
     <section class="grid-3">
-      <!-- 0.1.1 / 0.1.2 / 0.3 -->
       <article class="card">
-        <h2 class="card-title">Users & Admins</h2>
-        <p class="card-value">24 Users · 2 Admins</p>
-        <p class="small-muted">
-          Register users, handle logins, and manage admin accounts (0.1.1, 0.1.2, 0.3).
-        </p>
+        <h2 class="card-title">Total Users</h2>
+        <p class="card-value" id="stat-users">0</p>
+        <p class="small-muted">Registered home owners and family members.</p>
       </article>
 
-      <!-- 0.2.1 -->
       <article class="card">
-        <h2 class="card-title">Devices</h2>
-        <p class="card-value">128 Devices</p>
-        <p class="small-muted">
-          Admin can control all smart devices and send commands (0.2.1 Device Control).
-        </p>
+        <h2 class="card-title">Admin Accounts</h2>
+        <p class="card-value" id="stat-admins">0</p>
+        <p class="small-muted">People who can access this admin panel.</p>
       </article>
 
-      <!-- 0.2.2 / 0.2.3 -->
       <article class="card">
-        <h2 class="card-title">Schedules & Energy</h2>
-        <p class="card-value">37 Schedules</p>
-        <p class="small-muted">
-          Admin manages automation schedules and monitors energy usage (0.2.2, 0.2.3).
-        </p>
+        <h2 class="card-title">Open Alerts</h2>
+        <p class="card-value">3</p>
+        <p class="small-muted">Security / connectivity alerts from logs.</p>
       </article>
     </section>
 
-    <!-- USER / ADMIN MANAGEMENT (0.1.1, 0.1.2, 0.3) -->
-    <section class="card" style="margin-top:1.5rem;">
-      <h2 class="card-title">User & Admin Management (0.1.1, 0.1.2, 0.3)</h2>
+    <!-- USER MANAGEMENT (REGISTER / REMOVE USERS, ADMIN MGMT) -->
+    <section id="user-management" class="card" style="margin-top:1.5rem;">
+      <h2 class="card-title">User & Admin Management</h2>
       <p class="small-muted">
-        Here admin registers new users, views existing users and manages admin accounts.
-        (This is a front-end demo, so data is static.)
+        Admin can register new users, promote them to admin, or remove them.
+        (Data is stored in browser localStorage for this front-end demo.)
       </p>
 
-      <table class="log-table" style="margin-top:0.75rem;">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Role</th>
-            <th>Home</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Rohan Sharma</td>
-            <td>User</td>
-            <td>Sharma Residence</td>
-            <td>Active</td>
-          </tr>
-          <tr>
-            <td>Ananya Singh</td>
-            <td>User</td>
-            <td>Skyline Apartment</td>
-            <td>Active</td>
-          </tr>
-          <tr>
-            <td>System Admin</td>
-            <td>Admin</td>
-            <td>Global</td>
-            <td>Online</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
+      <!-- Add user form -->
+      <form id="addUserForm" class="grid-4" style="margin-top:1rem; gap:0.75rem;">
+        <div class="field">
+          <label class="label">Full Name</label>
+          <input class="input" name="name" required placeholder="e.g. Rohan Sharma">
+        </div>
+        <div class="field">
+          <label class="label">Email</label>
+          <input class="input" name="email" type="email" required placeholder="user@example.com">
+        </div>
+        <div class="field">
+          <label class="label">Home / House Name</label>
+          <input class="input" name="home" required placeholder="e.g. Sharma Residence">
+        </div>
+        <div class="field">
+          <label class="label">Role</label>
+          <select class="input" name="role">
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
 
-    <!-- DEVICE CONTROL & SCHEDULING (0.2.1, 0.2.2) -->
-    <section class="card" style="margin-top:1.5rem;">
-      <h2 class="card-title">Device Control & Scheduling (0.2.1, 0.2.2)</h2>
-      <p class="small-muted">
-        Admin can open the detailed pages to control devices and configure schedules.
-      </p>
+        <div style="grid-column:1 / -1; margin-top:0.5rem;">
+          <button type="submit" class="btn-primary">Add / Register User</button>
+        </div>
+      </form>
 
-      <div class="chip-row" style="margin-top:0.75rem;">
-        <a href="devices.html" class="btn-primary">Go to Device Control</a>
-        <a href="schedules.html" class="btn-ghost">Go to Scheduling</a>
+      <!-- Users table -->
+      <div style="margin-top:1rem; overflow-x:auto;">
+        <table class="log-table" id="usersTable">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Home</th>
+              <th>Role</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- filled by JS -->
+          </tbody>
+        </table>
       </div>
     </section>
 
-    <!-- ENERGY MONITORING (0.2.3) -->
-    <section class="card" style="margin-top:1.5rem;">
-      <h2 class="card-title">Energy Monitoring (0.2.3)</h2>
-      <p class="small-muted">
-        Admin views overall energy usage of smart devices across all homes
-        (in a real system this would come from the database).
-      </p>
-      <ul class="compact-list" style="margin-top:0.75rem;">
-        <li>Today’s total usage: 42 kWh</li>
-        <li>Highest consumption: Living Room AC</li>
-        <li>Energy-saving scenes active: Morning, Evening</li>
-      </ul>
-    </section>
+    <!-- ENERGY & SECURITY SECTIONS (to match DFD 0.2.3 & 0.2.4) -->
+    <section class="two-col" style="margin-top:1.5rem;">
+      <!-- Energy Monitoring -->
+      <div class="card">
+        <h2 class="card-title">Energy Monitoring</h2>
+        <p class="small-muted">
+          High-level view of total energy usage across all homes (demo values).
+        </p>
+        <ul class="compact-list" style="margin-top:0.75rem;">
+          <li>Today's total: 42 kWh</li>
+          <li>Peak hour: 19:00 – 21:00</li>
+          <li>Most consuming device: Living Room AC</li>
+        </ul>
+      </div>
 
-    <!-- SECURITY MANAGEMENT (0.2.4) -->
-    <section class="card" id="security-section" style="margin-top:1.5rem;">
-      <h2 class="card-title">Security Management (0.2.4)</h2>
-      <p class="small-muted">
-        Admin monitors alerts coming from locks, cameras and sensors,
-        and can review them in the Logs page.
-      </p>
-
-      <ul class="compact-list" style="margin-top:0.75rem;">
-        <li><strong>Door lock failed</strong> – 2 wrong PIN attempts (Roy Smart Villa)</li>
-        <li><strong>Camera offline</strong> – Kitchen camera disconnected (Skyline Apartment)</li>
-        <li><strong>New device joined</strong> – Living Room Plug (Sharma Residence)</li>
-      </ul>
-
-      <div class="chip-row" style="margin-top:0.75rem;">
-        <a href="logs.html" class="btn-ghost">Open Security Logs</a>
-        <a href="settings.html" class="btn-ghost">Security Settings</a>
+      <!-- Security Management -->
+      <div class="card">
+        <h2 class="card-title">Security Management</h2>
+        <p class="small-muted">
+          Recent security-related events. Admin can open full history in the Logs page.
+        </p>
+        <ul class="compact-list" style="margin-top:0.75rem;">
+          <li><strong>Lock alert</strong> – 2 failed PIN attempts at Front Door Lock</li>
+          <li><strong>Camera offline</strong> – Kitchen camera disconnected</li>
+          <li><strong>New device</strong> – Smart Plug added in Study Room</li>
+        </ul>
+        <div class="chip-row" style="margin-top:0.75rem;">
+          <a href="logs.html" class="btn-ghost">View full logs</a>
+          <a href="settings.html" class="btn-ghost">Security settings</a>
+        </div>
       </div>
     </section>
 
     <footer class="app-footer">
-      <p>© SmartHome — Admin Panel (front-end demo, all data static).</p>
+      <p>© SmartHome — Admin Panel (front-end demo, data stored in browser only).</p>
     </footer>
-
   </main>
 
+  <!-- JS for user management -->
+  <script>
+    // Use localStorage key for users list
+    const STORAGE_KEY = 'smarthome_admin_users';
+
+    function loadUsers() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveUsers(users) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
+    }
+
+    // Some default demo users (only on first load)
+    function ensureDemoUsers() {
+      let users = loadUsers();
+      if (users.length === 0) {
+        users = [
+          { name: 'Rohan Sharma',  email: 'rohan@example.com',  home: 'Sharma Residence',  role: 'user'  },
+          { name: 'Ananya Singh', email: 'ananya@example.com', home: 'Skyline Apartment', role: 'user'  },
+          { name: 'System Admin', email: 'admin@smarthome.com', home: 'Global',           role: 'admin' }
+        ];
+        saveUsers(users);
+      }
+    }
+
+    function renderUsersTable() {
+      const tbody = document.querySelector('#usersTable tbody');
+      tbody.innerHTML = '';
+      const users = loadUsers();
+
+      users.forEach((u, index) => {
+        const tr = document.createElement('tr');
+
+        tr.innerHTML = `
+          <td>${u.name}</td>
+          <td>${u.email}</td>
+          <td>${u.home}</td>
+          <td>${u.role === 'admin' ? 'Admin' : 'User'}</td>
+          <td>
+            <button class="btn-ghost small" data-action="promote" data-index="${index}">
+              ${u.role === 'admin' ? 'Make User' : 'Make Admin'}
+            </button>
+            <button class="btn-ghost small" data-action="delete" data-index="${index}">
+              Remove
+            </button>
+          </td>
+        `;
+
+        tbody.appendChild(tr);
+      });
+
+      // Update stats
+      const totalUsers = users.length;
+      const adminCount = users.filter(u => u.role === 'admin').length;
+      document.getElementById('stat-users').textContent  = totalUsers;
+      document.getElementById('stat-admins').textContent = adminCount;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      ensureDemoUsers();
+      renderUsersTable();
+
+      // Handle add user
+      const form = document.getElementById('addUserForm');
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const user = {
+          name:  formData.get('name').trim(),
+          email: formData.get('email').trim(),
+          home:  formData.get('home').trim(),
+          role:  formData.get('role')
+        };
+        if (!user.name || !user.email || !user.home) {
+          alert('Please fill all fields');
+          return;
+        }
+        const users = loadUsers();
+        users.push(user);
+        saveUsers(users);
+        form.reset();
+        renderUsersTable();
+      });
+
+      // Handle promote / delete buttons using event delegation
+      document.querySelector('#usersTable tbody').addEventListener('click', (e) => {
+        const btn = e.target.closest('button[data-action]');
+        if (!btn) return;
+        const index = parseInt(btn.dataset.index, 10);
+        const action = btn.dataset.action;
+        const users = loadUsers();
+
+        if (action === 'delete') {
+          if (confirm('Remove this user?')) {
+            users.splice(index, 1);
+            saveUsers(users);
+            renderUsersTable();
+          }
+        } else if (action === 'promote') {
+          users[index].role = users[index].role === 'admin' ? 'user' : 'admin';
+          saveUsers(users);
+          renderUsersTable();
+        }
+      });
+    });
+  </script>
 </body>
 </html>
