@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SmartHome – Admin Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- reuse your existing styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="app">
+
+  <!-- ========== ADMIN SIDEBAR ========== -->
+  <aside class="app-sidebar">
+    <div class="brand">
+      <div class="brand-mark">SH</div>
+      <div class="brand-text">
+        <div class="brand-title">SmartHome</div>
+        <div class="brand-subtitle">Admin Panel</div>
+      </div>
+    </div>
+
+    <nav class="main-nav">
+      <a class="nav-item active" href="admin-dashboard.html">
+        <img class="nav-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/home.svg" alt="">
+        Admin Dashboard
+      </a>
+
+      <!-- These links point to your existing pages -->
+      <a class="nav-item" href="devices.html">
+        <img class="nav-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/cpu.svg" alt="">
+        Device Control (0.2.1)
+      </a>
+
+      <a class="nav-item" href="schedules.html">
+        <img class="nav-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/calendar.svg" alt="">
+        Scheduling (0.2.2)
+      </a>
+
+      <a class="nav-item" href="logs.html">
+        <img class="nav-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/book-open.svg" alt="">
+        Logs & Security (0.2.3 / 0.2.4)
+      </a>
+
+      <a class="nav-item" href="settings.html">
+        <img class="nav-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/settings.svg" alt="">
+        System Settings
+      </a>
+
+      <a class="nav-item" href="dashboard.html">
+        <img class="nav-icon" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/user.svg" alt="">
+        Home Owner Dashboard
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="profile">
+        <img class="avatar-img" src="https://cdn-icons-png.flaticon.com/512/2922/2922510.png" alt="">
+        <div>
+          <div class="name">System Admin</div>
+          <div class="small-muted">Full access</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ========== MAIN ADMIN AREA ========== -->
+  <main class="app-main">
+
+    <!-- HEADER -->
+    <header class="app-header">
+      <div>
+        <h1>Admin Dashboard</h1>
+        <p class="small-muted">
+          Admin performs all main operations from DFD Level 2:
+          user registration, device control, scheduling, energy & security management.
+        </p>
+      </div>
+    </header>
+
+    <!-- TOP CARDS: show that admin manages everything -->
+    <section class="grid-3">
+      <!-- 0.1.1 / 0.1.2 / 0.3 -->
+      <article class="card">
+        <h2 class="card-title">Users & Admins</h2>
+        <p class="card-value">24 Users · 2 Admins</p>
+        <p class="small-muted">
+          Register users, handle logins, and manage admin accounts (0.1.1, 0.1.2, 0.3).
+        </p>
+      </article>
+
+      <!-- 0.2.1 -->
+      <article class="card">
+        <h2 class="card-title">Devices</h2>
+        <p class="card-value">128 Devices</p>
+        <p class="small-muted">
+          Admin can control all smart devices and send commands (0.2.1 Device Control).
+        </p>
+      </article>
+
+      <!-- 0.2.2 / 0.2.3 -->
+      <article class="card">
+        <h2 class="card-title">Schedules & Energy</h2>
+        <p class="card-value">37 Schedules</p>
+        <p class="small-muted">
+          Admin manages automation schedules and monitors energy usage (0.2.2, 0.2.3).
+        </p>
+      </article>
+    </section>
+
+    <!-- USER / ADMIN MANAGEMENT (0.1.1, 0.1.2, 0.3) -->
+    <section class="card" style="margin-top:1.5rem;">
+      <h2 class="card-title">User & Admin Management (0.1.1, 0.1.2, 0.3)</h2>
+      <p class="small-muted">
+        Here admin registers new users, views existing users and manages admin accounts.
+        (This is a front-end demo, so data is static.)
+      </p>
+
+      <table class="log-table" style="margin-top:0.75rem;">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Home</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Rohan Sharma</td>
+            <td>User</td>
+            <td>Sharma Residence</td>
+            <td>Active</td>
+          </tr>
+          <tr>
+            <td>Ananya Singh</td>
+            <td>User</td>
+            <td>Skyline Apartment</td>
+            <td>Active</td>
+          </tr>
+          <tr>
+            <td>System Admin</td>
+            <td>Admin</td>
+            <td>Global</td>
+            <td>Online</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- DEVICE CONTROL & SCHEDULING (0.2.1, 0.2.2) -->
+    <section class="card" style="margin-top:1.5rem;">
+      <h2 class="card-title">Device Control & Scheduling (0.2.1, 0.2.2)</h2>
+      <p class="small-muted">
+        Admin can open the detailed pages to control devices and configure schedules.
+      </p>
+
+      <div class="chip-row" style="margin-top:0.75rem;">
+        <a href="devices.html" class="btn-primary">Go to Device Control</a>
+        <a href="schedules.html" class="btn-ghost">Go to Scheduling</a>
+      </div>
+    </section>
+
+    <!-- ENERGY MONITORING (0.2.3) -->
+    <section class="card" style="margin-top:1.5rem;">
+      <h2 class="card-title">Energy Monitoring (0.2.3)</h2>
+      <p class="small-muted">
+        Admin views overall energy usage of smart devices across all homes
+        (in a real system this would come from the database).
+      </p>
+      <ul class="compact-list" style="margin-top:0.75rem;">
+        <li>Today’s total usage: 42 kWh</li>
+        <li>Highest consumption: Living Room AC</li>
+        <li>Energy-saving scenes active: Morning, Evening</li>
+      </ul>
+    </section>
+
+    <!-- SECURITY MANAGEMENT (0.2.4) -->
+    <section class="card" id="security-section" style="margin-top:1.5rem;">
+      <h2 class="card-title">Security Management (0.2.4)</h2>
+      <p class="small-muted">
+        Admin monitors alerts coming from locks, cameras and sensors,
+        and can review them in the Logs page.
+      </p>
+
+      <ul class="compact-list" style="margin-top:0.75rem;">
+        <li><strong>Door lock failed</strong> – 2 wrong PIN attempts (Roy Smart Villa)</li>
+        <li><strong>Camera offline</strong> – Kitchen camera disconnected (Skyline Apartment)</li>
+        <li><strong>New device joined</strong> – Living Room Plug (Sharma Residence)</li>
+      </ul>
+
+      <div class="chip-row" style="margin-top:0.75rem;">
+        <a href="logs.html" class="btn-ghost">Open Security Logs</a>
+        <a href="settings.html" class="btn-ghost">Security Settings</a>
+      </div>
+    </section>
+
+    <footer class="app-footer">
+      <p>© SmartHome — Admin Panel (front-end demo, all data static).</p>
+    </footer>
+
+  </main>
+
+</body>
+</html>
