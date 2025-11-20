@@ -52,10 +52,20 @@
             <!-- SIGN-IN BUTTON -->
             <button type="submit" class="btn-primary btn-lg">Sign in</button>
 
-            <!-- Small inline account creation (NOT a big button) -->
+            <!-- Small inline account creation + ADMIN OPTION -->
             <div class="alt">
-              New here?
-              <a href="#" class="create-link">Create an account</a>
+              <div>
+                New here?
+                <a href="#" class="create-link">Create an account</a>
+              </div>
+
+              <!-- 🔹 Added Admin login option here -->
+              <div style="margin-top:0.5rem;">
+                <span class="small-muted">
+                  Are you an Admin?
+                  <a href="admin-login.html" class="create-link">Login as Admin</a>
+                </span>
+              </div>
             </div>
 
           </form>
@@ -189,12 +199,13 @@
           return;
         }
 
-        // Save session
+        // Save session (Home Owner / normal user)
         localStorage.setItem('smarthome_user_v2', JSON.stringify({
           email,
           loggedInAt: new Date().toISOString()
         }));
 
+        // Redirect to existing user dashboard
         window.location.href = "dashboard.html";
       });
     });
@@ -202,4 +213,3 @@
 
 </body>
 </html>
-
