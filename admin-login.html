@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SmartHome – Admin Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- use your existing styles -->
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="app auth-app">
+
+  <main class="auth-shell">
+    <section class="auth-card">
+      <!-- LEFT: Login form -->
+      <div class="auth-left">
+        <header class="auth-header">
+          <h1>SmartHome Admin</h1>
+          <p class="small-muted">
+            Sign in as system administrator to manage users, devices, schedules and security.
+          </p>
+        </header>
+
+        <form id="adminLoginForm" class="auth-form">
+          <div class="field">
+            <label class="label" for="adminEmail">Admin Email</label>
+            <input class="input" id="adminEmail" type="email" required placeholder="admin@smarthome.com">
+          </div>
+
+          <div class="field">
+            <label class="label" for="adminPassword">Password</label>
+            <input class="input" id="adminPassword" type="password" required placeholder="••••••••">
+          </div>
+
+          <div class="helpers">
+            <label class="checkbox">
+              <input type="checkbox" checked> Remember me
+            </label>
+            <span class="small-muted">Admin access only</span>
+          </div>
+
+          <button type="submit" class="btn-primary" style="width:100%; margin-top:1rem;">
+            Sign in as Admin
+          </button>
+
+          <p class="small-muted" style="margin-top:1rem; text-align:center;">
+            Normal home owner? <a href="login.html">Go to User Login</a>
+          </p>
+        </form>
+      </div>
+
+      <!-- RIGHT: Fancy info panel -->
+      <div class="auth-right">
+        <div class="hero-visual">
+          <img
+            class="hero-img"
+            src="https://cdn-icons-png.flaticon.com/512/10451/10451077.png"
+            alt="Admin illustration">
+          <h2 class="hero-title">Control every smart home</h2>
+          <p class="hero-sub small-muted">
+            As an admin, you can register users, control all devices, schedule automations,
+            track energy usage and handle security alerts.
+          </p>
+
+          <ul class="feature-list">
+            <li>Approve / block users</li>
+            <li>Global device & schedule control</li>
+            <li>Energy & security monitoring</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Simple demo admin login
+    document.getElementById('adminLoginForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const email = document.getElementById('adminEmail').value.trim();
+      const password = document.getElementById('adminPassword').value.trim();
+
+      if (!email || !password) {
+        alert('Please enter email and password');
+        return;
+      }
+
+      // Optional hard-coded check – you can change these
+      const validEmail = 'admin@smarthome.com';
+      const validPass  = 'admin123';
+
+      if (email !== validEmail || password !== validPass) {
+        alert('Invalid admin credentials (use admin@smarthome.com / admin123 for demo)');
+        return;
+      }
+
+      // Save admin session
+      localStorage.setItem('smarthome_admin_session', JSON.stringify({
+        email,
+        loggedInAt: new Date().toISOString()
+      }));
+
+      // Go to admin dashboard
+      window.location.href = 'admin-dashboard.html';
+    });
+  </script>
+</body>
+</html>
